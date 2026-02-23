@@ -1,0 +1,96 @@
+{
+  "ground": "0",
+  "freq": { "fmin": 20, "fmax": 20000, "n": 2000, "spacing": "log" },
+
+  "params": {
+    "Re": 2.1,
+    "Le": 80e-6,
+
+    "Bl": 3.4,
+
+    "Mms": 0.18e-3,
+    "Rms": 0.6,
+    "Cms": 0.35e-3,
+
+    "Sd": 2.8e-4,
+
+    "rho": 1.18,
+    "c": 343.0,
+
+    "V_front": 1.2e-6,
+    "V_back": 6.0e-6,
+
+    "R_leak_front": 8.0e6,
+    "R_vent_back": 2.0e6,
+    "M_vent_back": 2.0e6
+  },
+
+  "elements": [
+    { "type": "vsrc", "name": "Vin", "n1": "e_in", "n2": "0", "value": 1.0 },
+
+    { "type": "R", "name": "Re", "n1": "e_in",   "n2": "e_coil", "value": "Re" },
+    { "type": "L", "name": "Le", "n1": "e_coil", "n2": "e_mech", "value": "Le" },
+
+    {
+      "type": "xfmr_Bl",
+      "name": "Bl",
+      "ports": [
+        { "n1": "e_mech", "n2": "0" },
+        { "n1": "m_drv",  "n2": "0" }
+      ],
+      "value": "Bl"
+    },
+
+    { "type": "mass_mob",   "name": "Mms", "n1": "m_drv", "n2": "0", "value": "Mms" },
+    { "type": "damper_mob", "name": "Rms", "n1": "m_drv", "n2": "0", "value": "Rms" },
+    { "type": "spring_mob", "name": "Cms", "n1": "m_drv", "n2": "0", "value": "Cms" },
+
+
+    {
+      "type": "xfmr_S",
+      "name": "Sd_front",
+      "ports": [
+        { "n1": "m_drv",   "n2": "0" },
+        { "n1": "a_front", "n2": "0" }
+      ],
+      "value": "Sd"
+    },
+
+    {
+      "type": "xfmr_S",
+      "name": "Sd_back",
+      "ports": [
+        { "n1": "m_drv",  "n2": "0" },
+        { "n1": "a_back", "n2": "0" }
+      ],
+      "value": "Sd"
+    },
+
+    {
+      "type": "acompliance",
+      "name": "C_front",
+      "n1": "a_front",
+      "n2": "0",
+      "value": "V_front/(rho*c**2)"
+    },
+
+    {
+      "type": "acompliance",
+      "name": "C_back",
+      "n1": "a_back",
+      "n2": "0",
+      "value": "V_back/(rho*c**2)"
+    },
+
+    { "type": "aresistance", "name": "R_leak", "n1": "a_front", "n2": "0", "value": "R_leak_front" },
+
+    { "type": "aresistance", "name": "R_vent", "n1": "a_back",  "n2": "0", "value": "R_vent_back" },
+    { "type": "ainertance",  "name": "M_vent", "n1": "a_back",  "n2": "0", "value": "M_vent_back" }
+  ],
+
+  "outputs": {
+    "p_front_node": "a_front",
+    "input_current_element": "Vin",
+    "Vin_for_Zin": 1.0
+  }
+}

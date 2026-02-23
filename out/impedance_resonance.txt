@@ -1,0 +1,7 @@
+f0_hz: 379.90001904255814
+Q: nan
+f1_hz: nan
+f2_hz: nan
+peak_mag: 5.624609959845599
+method: motional|Z| peak + -3dB bandwidth
+notes: Could not find -3dB crossings (peak too flat or search range too small). subtracted Re, subtracted jωLe
