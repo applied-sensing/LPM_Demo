@@ -11,3 +11,7 @@ python-dateutil==2.9.0.post0
 PyYAML==6.0.3
 scipy==1.17.0
 six==1.17.0
+
+streamlit>=1.35
+plotly>=5.22
+pandas>=2.0
